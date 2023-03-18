@@ -1,16 +1,28 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class PatientPage extends StatelessWidget {
-  const PatientPage({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  HomePage({super.key});
+
+  final user = FirebaseAuth.instance.currentUser!;
+
+  // sign user out method
+  void signUserOut() {
+    FirebaseAuth.instance.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        title: Text(
-          'Patient\'s Portal',
-          style: TextStyle(fontFamily: 'Raleway'),
-        ),
+        backgroundColor: Colors.grey[900],
+        actions: [
+          IconButton(
+            onPressed: signUserOut,
+            icon: Icon(Icons.logout),
+          )
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -25,8 +37,7 @@ class PatientPage extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 50.0,
-                      backgroundImage:
-                          AssetImage('assets/images/patient_photo.jpg'),
+                      backgroundImage: AssetImage('lib/images/google.png'),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
